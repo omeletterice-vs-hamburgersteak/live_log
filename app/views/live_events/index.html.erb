@@ -1,2 +1,9 @@
-<h1>LiveEvents#index</h1>
-<p>Find me in app/views/live_events/index.html.erb</p>
+<h1>参戦したライブ・イベント一覧</h1>
+
+<%= link_to "新しいライブを追加", new_live_event_path %>
+
+<ul>
+  <% @live_events.each do |event| %>
+    <li><%= event.title %> - <%= event.date %> - <%= event.venue %> - <%= event.artist %></li>
+  <% end %>
+</ul>
