@@ -19,3 +19,18 @@
   ```
   $ rails generate controller LiveEvents index show new edit
   ```
+
+#### 10/2
+**やったこと**
+- indexのビューを作成
+- index, new, create, live_event_paramsをコントローラに追加
+- routeをresourcesを使うように変更
+- DBにtitleを追加
+
+**次回やりたいこと**
+- indexの体裁を整える
+  - 日付順とかで並び替えをしたいから表形式とかがいいのかな？
+  - 背景
+  - フォント
+- editの追加
+- newのタイトルとかの入力枠を広くしたい
