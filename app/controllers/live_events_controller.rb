@@ -20,7 +20,7 @@ class LiveEventsController < ApplicationController
   end
 
   def live_event_params
-    params.require(:live_event).permit(:title, :date, :veune, :artist)
+    params.require(:live_event).permit(:title, :date, :venue, :artist)
   end
 
   def edit
