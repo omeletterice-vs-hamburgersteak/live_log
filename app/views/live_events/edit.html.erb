@@ -1,2 +1,31 @@
-<h1>LiveEvents#edit</h1>
-<p>Find me in app/views/live_events/edit.html.erb</p>
+<h1>イベントの編集</h1>
+
+<%= form_with model: @live_event do |form| %>
+  <div>
+    <%= form.label :title, "ライブ名" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :date, "日付" %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div>
+    <%= form.label :venue, "会場" %>
+    <%= form.text_field :venue %>
+  </div>
+
+  <div>
+    <%= form.label :artist, "出演者" %>
+    <%= form.text_field :artist %>
+  </div>
+
+  <div>
+    <%= form.submit "更新" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "一覧に戻る", live_events_path %>
+</div>
