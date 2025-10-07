@@ -1,31 +1,42 @@
-<h1>新しいライブを登録</h1>
+<!DOCTYPE html>
+  <html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>ライブ参戦記録アプリ</title>
+    <!-- ここにCSSやJSのリンクを追加 -->
+  </head>
+  <body>
+    <div class="container mx-auto p-4 bg-[#FFF0F5]">
+    <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">新しいライブを登録</h1>
 
-<%= form_with(model: @live_event, local: true) do |form| %>
-  <div>
-    <%= form.label :title, "ライブ名" %>
-    <%= form.text_field :title %>
-  </div>
+    <%= form_with(model: @live_event, local: true) do |form| %>
+      <div>
+        <%= form.label :title, "ライブ・イベント名" %>
+        <%= form.text_field :title, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
+      </div>
 
-  <div>
-    <%= form.label :date, "日付" %>
-    <%= form.date_select :date %>
-  </div>
+      <div>
+        <%= form.label :date, "日付" %>
+        <%= form.date_select :date, { }, { class: "bg-white border border-gray-300 rounded p-2 mt-1" } %>
+      </div>
 
-  <div>
-    <%= form.label :venue, "会場" %>
-    <%= form.text_field :venue %>
-  </div>
+      <div>
+        <%= form.label :venue, "会場" %>
+        <%= form.text_field :venue, class: "border border-gray-300 rounded bg-white mt-1" %>
+      </div>
 
-  <div>
-    <%= form.label :artist, "出演者" %>
-    <%= form.text_field :artist %>
-  </div>
+      <div>
+        <%= form.label :artist, "出演者" %>
+        <%= form.text_field :artist, class: "border border-gray-300 rounded bg-white mt-1" %>
+      </div>
 
-  <div>
-    <%= form.submit "登録" %>
-  </div>
-<% end %>
+      <div>
+        <%= form.submit "登録", class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded mt-1" %>
+      </div>
+    <% end %>
 
-<div>
-  <%= link_to "一覧に戻る", live_events_path %>
-</div>
+    <div>
+      <%= link_to "一覧に戻る", live_events_path, class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mt-4" %>
+    </div>
+  </body>
+</html>
