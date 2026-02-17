@@ -14,10 +14,47 @@
     <table class="table-auto w-full border-collapse border border-gray-300">
       <thead>
         <tr class="text-[#663300]">
-          <th class="border border-gray-300 px-2 py-1">タイトル</th>
-          <th class="border border-gray-300 px-2 py-1">開催日</th>
+          <th class="border border-gray-300 px-2 py-1">
+            <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
+            <% next_direction = current_direction == "asc" ? "desc" : "asc" %>
+
+            <%= link_to root_path(sort: "title", direction: next_direction) do %>
+              タイトル
+              <% if current_direction == "asc" %>
+                ▲
+              <% else %>
+                ▼
+              <% end %>
+            <% end %>
+          </th>
+          <th class="border border-gray-300 px-2 py-1">
+            <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
+            <% next_direction = current_direction == "asc" ? "desc" : "asc" %>
+
+            <%= link_to root_path(sort: "date", direction: next_direction) do %>
+              開催日
+              <% if current_direction == "asc" %>
+                ▲
+              <% else %>
+                ▼
+              <% end %>
+            <% end %>
+          </th>
           <th class="border border-gray-300 px-2 py-1">出演者</th>
-          <th class="border border-gray-300 px-2 py-1">会場</th>
+          <th class="border border-gray-300 px-2 py-1">
+            <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
+            <% next_direction = current_direction == "asc" ? "desc" : "asc" %>
+
+            <%= link_to root_path(sort: "venue", direction: next_direction) do %>
+              会場
+              <% if current_direction == "asc" %>
+                ▲
+              <% else %>
+                ▼
+              <% end %>
+            <% end %>
+          </th>
+          
           <th class="border border-gray-300 px-2 py-1">操作</th>
         </tr>
       </thead>
