@@ -26,8 +26,13 @@
       </div>
 
       <div>
-        <%= form.label :artist, "出演者" %>
-        <%= form.text_field :artist, class: "border border-gray-300 rounded bg-white mt-1" %>
+        <%= form.label :artist_ids, "出演者" %>
+        <%= form.collection_select :artist_ids,
+          Artist.order(:name),
+          :id,
+          :name,
+          {},
+          { multiple: true, class: "border border-gray-300 rounded bg-white mt-1" } %>
       </div>
 
       <div>

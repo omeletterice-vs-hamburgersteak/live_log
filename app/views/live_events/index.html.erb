@@ -9,6 +9,20 @@
   <div class="container mx-auto p-4 bg-[#FFF0F5]">
     <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">参戦したライブ・イベント一覧</h1>
 
+    <div class="mb-2">
+      <span id="artist-toggle" class="cursor-pointer font-bold">
+        出演者で絞り込み 🔻
+      </span>
+
+      <div id="artist-filter" class="hidden mt-2">
+        <% @artists.each do |artist| %>
+          <%= link_to artist.name,
+              live_events_path(artist_id: artist.id),
+              class: "block px-2 py-1 hover:bg-gray-200" %>
+        <% end %>
+      </div>
+    </div>
+
     <table class="table-auto w-full border-collapse border border-gray-300 mt-4">
       <thead>
         <tr class="text-[#663300]">
@@ -40,7 +54,11 @@
               <% end %>
             <% end %>
           </th>
-          <th class="border border-gray-300 px-2 py-1">出演者</th>
+          <th class="border border-gray-300 px-2 py-1">
+            <span id="artist-toggle" class="cursor-pointer">
+              出演者 ▼
+            </span>
+          </th>
           <th class="border border-gray-300 px-2 py-1">
             <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
             <% next_direction = current_sort == "venue" && current_direction == "asc" ? "desc" : "asc" %>
@@ -63,7 +81,7 @@
           <tr>
             <td class="border border-gray-300 px-2 py-1"><%= link_to event.title, live_event_path(event) %></td>
             <td class="border border-gray-300 px-2 py-1"><%= event.date.strftime("%Y-%m-%d") %></td>
-            <td class="border border-gray-300 px-2 py-1"><%= event.artist %></td>
+            <td class="border border-gray-300 px-2 py-1"><%= event.artist_id %></td>
             <td class="border border-gray-300 px-2 py-1"><%= event.venue %></td>
             <td class="border border-gray-300 px-2 py-1">
               <%= link_to "編集", edit_live_event_path(event), class: "text-green-600 hover:underline mr-2" %>

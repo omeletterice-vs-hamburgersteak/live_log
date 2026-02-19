@@ -26,8 +26,18 @@
       </div>
 
       <div>
-        <%= form.label :artist, "出演者" %>
-        <%= form.text_field :artist, class: "border border-gray-300 rounded bg-white mt-1" %>
+        <label>出演者（既存）</label>
+        <%= form.collection_check_boxes :artist_ids, @artists, :id, :name do |b| %>
+          <div>
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <%= form.label :new_artist_name, "新しい出演者を追加" %>
+        <%= form.text_field :new_artist_name %>
       </div>
 
       <div>
