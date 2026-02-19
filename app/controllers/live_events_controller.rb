@@ -1,6 +1,9 @@
 class LiveEventsController < ApplicationController
   def index
-    @live_events = LiveEvent.all
+    sort_column = params[:sort] || "date"
+    sort_direction = params[:direction] || "asc"
+
+    @live_events = LiveEvent.order("#{sort_column} #{sort_direction}")
   end
 
   def show
