@@ -7,11 +7,9 @@
 </head>
 <body>
   <div class="container mx-auto p-4 bg-[#FFF0F5]">
-    <h1 class="text-3xl text-center text-[#663300] mb-4">参戦したライブ・イベント一覧</h1>
+    <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">参戦したライブ・イベント一覧</h1>
 
-    <%= link_to "新しいライブを追加", new_live_event_path, class: "text-blue-600 hover:underline font-semibold mb-4 inline-block" %>
-
-    <table class="table-auto w-full border-collapse border border-gray-300">
+    <table class="table-auto w-full border-collapse border border-gray-300 mt-4">
       <thead>
         <tr class="text-[#663300]">
           <th class="border border-gray-300 px-2 py-1">
@@ -74,6 +72,9 @@
         <% end %>
       </tbody>
     </table>
+    <div class="mt-6 text-right">
+      <%= link_to "新しいライブを追加", new_live_event_path, class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded" %>
+    </div>
   </div>
 </body>
 </html>
