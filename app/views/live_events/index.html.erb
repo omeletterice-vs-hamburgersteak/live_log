@@ -12,11 +12,13 @@
     <table class="table-auto w-full border-collapse border border-gray-300 mt-4">
       <thead>
         <tr class="text-[#663300]">
+          <% current_sort = params[:sort] || "date" %>
+          <% current_direction = params[:direction] || "asc" %>
           <th class="border border-gray-300 px-2 py-1">
             <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
-            <% next_direction = current_direction == "asc" ? "desc" : "asc" %>
+            <% next_direction = current_sort == "title" && current_direction == "asc" ? "desc" : "asc" %>
 
-            <%= link_to root_path(sort: "title", direction: next_direction) do %>
+            <%= link_to root_path(sort: "title", direction: next_direction), class: "inline-flex items-center #{'text-blue-600 font-bold' if current_sort == 'title'}" do %>
               タイトル
               <% if current_direction == "asc" %>
                 ▲
@@ -27,9 +29,9 @@
           </th>
           <th class="border border-gray-300 px-2 py-1">
             <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
-            <% next_direction = current_direction == "asc" ? "desc" : "asc" %>
+            <% next_direction = current_sort == "date" && current_direction == "asc" ? "desc" : "asc" %>
 
-            <%= link_to root_path(sort: "date", direction: next_direction) do %>
+            <%= link_to root_path(sort: "date", direction: next_direction), class: "inline-flex items-center #{'text-blue-600 font-bold' if current_sort == 'date'}" do %>
               開催日
               <% if current_direction == "asc" %>
                 ▲
@@ -41,9 +43,9 @@
           <th class="border border-gray-300 px-2 py-1">出演者</th>
           <th class="border border-gray-300 px-2 py-1">
             <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
-            <% next_direction = current_direction == "asc" ? "desc" : "asc" %>
+            <% next_direction = current_sort == "venue" && current_direction == "asc" ? "desc" : "asc" %>
 
-            <%= link_to root_path(sort: "venue", direction: next_direction) do %>
+            <%= link_to root_path(sort: "venue", direction: next_direction), class: "inline-flex items-center #{'text-blue-600 font-bold' if current_sort == 'venue'}" do %>
               会場
               <% if current_direction == "asc" %>
                 ▲
