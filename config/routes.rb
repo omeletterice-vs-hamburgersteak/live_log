@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :live_events
+  resources :artists, only: [:index, :show, :new, :create]
   root "live_events#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
