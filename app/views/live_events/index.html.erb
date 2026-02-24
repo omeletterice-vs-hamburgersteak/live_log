@@ -10,11 +10,24 @@
     <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">参戦したライブ・イベント一覧</h1>
 
     <div class="mb-2">
+      <div class="mb-4">
       <span id="artist-toggle" class="cursor-pointer font-bold">
         出演者で絞り込み 🔻
       </span>
+      
+      <%= link_to "出演者一覧",
+            artists_path,
+            class: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded" %>
+      <%= link_to "➕出演者追加", new_artist_path, class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded" %>
 
-      <div id="artist-filter" class="hidden mt-2">
+      </div>
+
+      <div id="artist-filter" class="hidden mt-2 bg-white border p-2">
+        <% if params[:artist_id].present? %>
+          <%= link_to "絞り込み解除",
+              live_events_path,
+              class: "block px-2 py-1 text-blue-500 hover:bg-gray-200" %>
+        <% end %>
         <% @artists.each do |artist| %>
           <%= link_to artist.name,
               live_events_path(artist_id: artist.id),
@@ -55,9 +68,9 @@
             <% end %>
           </th>
           <th class="border border-gray-300 px-2 py-1">
-            <span id="artist-toggle" class="cursor-pointer">
-              出演者 ▼
-            </span>
+            <div id="artist-filter" class="hidden mt-2">
+              出演者
+            </div>
           </th>
           <th class="border border-gray-300 px-2 py-1">
             <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
@@ -81,7 +94,7 @@
           <tr>
             <td class="border border-gray-300 px-2 py-1"><%= link_to event.title, live_event_path(event) %></td>
             <td class="border border-gray-300 px-2 py-1"><%= event.date.strftime("%Y-%m-%d") %></td>
-            <td class="border border-gray-300 px-2 py-1"><%= event.artist_id %></td>
+            <td class="border border-gray-300 px-2 py-1"><%= event.artists.map(&:name).join(", ") %>
             <td class="border border-gray-300 px-2 py-1"><%= event.venue %></td>
             <td class="border border-gray-300 px-2 py-1">
               <%= link_to "編集", edit_live_event_path(event), class: "text-green-600 hover:underline mr-2" %>

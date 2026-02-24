@@ -2,7 +2,17 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-document.getElementById("artist-toggle").addEventListener("click", function() {
+document.addEventListener("turbo:load", () => {
+  const toggle = document.getElementById("artist-toggle");
   const filter = document.getElementById("artist-filter");
-  filter.style.display = filter.style.display === "none" ? "block" : "none";
+
+  if (!toggle || !filter) return;
+
+  toggle.addEventListener("click", () => {
+    document.querySelectorAll(".dropdown").forEach(el => {
+      if (el !== filter) el.classList.add("hidden");
+    });
+
+    filter.classList.toggle("hidden");
+  });
 });

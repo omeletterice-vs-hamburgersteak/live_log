@@ -27,7 +27,7 @@
 
       <div>
         <%= form.label :artist_ids, "出演者" %>
-        <%= form.collection_select :artist_ids,
+        <%= form.collection_check_boxes :artist_ids,
           Artist.order(:name),
           :id,
           :name,

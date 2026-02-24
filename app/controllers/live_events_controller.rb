@@ -5,7 +5,15 @@ class LiveEventsController < ApplicationController
 
     @artists = Artist.order(:name)
 
-    @live_events = LiveEvent.order("#{sort_column} #{sort_direction}")
+    @live_events = LiveEvent.includes(:artists)
+
+    if params[:artist_id].present?
+      @live_events = @live_events.joins(:artists)
+                                .where(artists: { id: params[:artist_id] })
+                                .distinct
+    end
+
+    @live_events = @live_events.order("#{sort_column} #{sort_direction}")
   end
 
   def show
