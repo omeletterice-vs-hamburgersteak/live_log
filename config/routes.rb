@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :favorites
   resources :live_events
   resources :artists, only: [:index, :show, :new, :create]
   root "live_events#index"
