@@ -1,10 +1,24 @@
-<p style="color: green"><%= notice %></p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>ライブ参戦記録アプリ</title>
+  <!-- ここにCSSやJSのリンクを追加 -->
+</head>
+<body>
+  <div class="container mx-auto p-4 bg-[#FFF0F5]">
+    <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">推し</h1>
+    <p style="color: green"><%= notice %></p>
 
-<%= render @favorite %>
+    <%= render @favorite %>
 
-<div>
-  <%= link_to "Edit this favorite", edit_favorite_path(@favorite) %> |
-  <%= link_to "Back to favorites", favorites_path %>
+    <br>
 
-  <%= button_to "Destroy this favorite", @favorite, method: :delete %>
-</div>
+    <div>
+      <%= link_to "推しを編集する", edit_favorite_path(@favorite), class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded mt-1" %>
+      <%= link_to "推し一覧に戻る", favorites_path, class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mt-4" %>
+      <br>
+      <%= button_to "この推しを削除する", @favorite, method: :delete %>
+    </div>
+</body>
+</html>

@@ -13,17 +13,22 @@
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
   </div>
 
+  <br>
+
   <div>
-    <%= form.label :category, style: "display: block" %>
-    <%= form.number_field :category %>
+    <%= form.label :category, "カテゴリ" %>
+    <%= form.select :category,
+        Favorite.categories.keys.map { |k| [k.humanize, k] },
+        {},
+        class: "border rounded p-2 bg-white" %>
   </div>
 
   <div>
     <%= form.label :memo, style: "display: block" %>
-    <%= form.textarea :memo %>
+    <%= form.textarea :memo, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
   </div>
 
   <div>
