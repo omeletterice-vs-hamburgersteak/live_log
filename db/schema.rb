@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_19_154058) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_25_145901) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorite_artists", force: :cascade do |t|
+    t.integer "favorite_id", null: false
+    t.integer "artist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_favorite_artists_on_artist_id"
+    t.index ["favorite_id"], name: "index_favorite_artists_on_favorite_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.string "name"
+    t.integer "category"
+    t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,6 +56,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_154058) do
     t.index ["artist_id"], name: "index_live_events_on_artist_id"
   end
 
+  add_foreign_key "favorite_artists", "artists"
+  add_foreign_key "favorite_artists", "favorites"
   add_foreign_key "live_event_artists", "artists"
   add_foreign_key "live_event_artists", "live_events"
   add_foreign_key "live_events", "artists"
