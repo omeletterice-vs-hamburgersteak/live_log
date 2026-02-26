@@ -1,13 +1,13 @@
 class Favorite < ApplicationRecord
   enum :category, {
-    character: 0,
-    voice_actor: 1,
-    stage_actor: 2,
-    vtuber: 3,
-    band: 4,
-    idol: 5,
-    actor: 6,
-    other: 7
+    "キャラクター": 0,
+    "声優": 1,
+    "2.5次元俳優": 2,
+    "Vtuber": 3,
+    "バンド": 4,
+    "アイドル": 5,
+    "俳優・女優": 6,
+    "その他": 7
   }
 
   has_many :favorite_artists
