@@ -12,6 +12,29 @@
 
     <%= render @favorite %>
 
+    <% @favorite.artists.each do |artist| %>
+      <%= link_to artist.name, artist_path(artist), class: "text-blue-500 underline" %>
+    <% end %>
+
+    <h2 class="text-xl font-bold mt-6 mb-2">最近の参戦イベント</h2>
+    <% if @live_events.any? %>
+      <ul class="space-y-2">
+        <% @live_events.each do |live| %>
+          <li class="border rounded p-2 hover:bg-gray-50">
+            <%= link_to live_event_path(live), class: "block" do %>
+              <span class="font-semibold">
+                <%= live.date %>
+              </span>
+              <span class="ml-2">
+                <%= live.title %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-gray-500">まだ出演ライブはありません。</p>
+    <% end %>
     <br>
 
     <div>

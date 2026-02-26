@@ -8,6 +8,12 @@ class FavoritesController < ApplicationController
 
   # GET /favorites/1 or /favorites/1.json
   def show
+    @favorite = Favorite.find(params[:id])
+    @live_events = LiveEvent.joins(:artists)
+                            .where(artists: { id: @favorite.artist_ids })
+                            .distinct
+                            .order(date: :desc)
+                            .limit(5)
   end
 
   # GET /favorites/new
@@ -65,6 +71,7 @@ class FavoritesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def favorite_params
-      params.expect(favorite: [ :name, :category, :memo ])
+        params.require(:favorite)
+        .permit(:name, :category, :memo, artist_ids: [])
     end
 end

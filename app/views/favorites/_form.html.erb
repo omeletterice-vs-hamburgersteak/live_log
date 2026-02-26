@@ -31,6 +31,21 @@
     <%= form.textarea :memo, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
   </div>
 
+    <div class="mb-6">
+    <p class="font-bold mb-2">関連する出演者</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-60 overflow-y-auto">
+      <% Artist.all.each do |artist| %>
+        <label class="flex items-center gap-2 border rounded p-2 hover:bg-gray-50 cursor-pointer">
+          <%= check_box_tag "favorite[artist_ids][]",
+                artist.id,
+                favorite.artist_ids.include?(artist.id) %>
+          <span><%= artist.name %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>
