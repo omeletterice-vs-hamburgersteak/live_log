@@ -10,15 +10,12 @@
     <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">推しの編集</h1>
     <p style="color: green"><%= notice %></p>
 
-  <% content_for :title, "推し-編集" %>
-
-  <%= render "form", favorite: @favorite %>
-
-  <br>
-
-  <div>
-    <%= link_to "推しの詳細を見る", @favorite, class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded mt-1" %>
-    <%= link_to "推し一覧に戻る", favorites_path, class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mt-4" %>
+    <% content_for :title, "推し-編集" %>
+    <%= render "form", favorite: @favorite %>
+    <div>
+      <%= link_to "推しの詳細を見る", @favorite, class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded mt-1" %>
+      <%= link_to "推し一覧に戻る", favorites_path, class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mt-4" %>
+    </div>
   </div>
 </body>
 </html>
