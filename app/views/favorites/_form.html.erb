@@ -12,14 +12,12 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, "名前", style: "display: block" %>
     <%= form.text_field :name, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
   </div>
 
-  <br>
-
   <div>
-    <%= form.label :category, "カテゴリ" %>
+    <%= form.label :category, "カテゴリ", style: "display: block" %>
     <%= form.select :category,
         Favorite.categories.keys.map { |k| [k.humanize, k] },
         {},
@@ -47,6 +45,6 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "確定",class: "bg-[#66cdaa] hover:bg-[#3cb371] text-black font-bold py-2 px-4 rounded mt-1"%>
   </div>
 <% end %>
