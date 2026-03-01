@@ -7,39 +7,37 @@ class FavoritesTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit favorites_url
-    assert_selector "h1", text: "Favorites"
+    assert_selector "h1", text: "私の推し"
   end
 
   test "should create favorite" do
-    visit favorites_url
-    click_on "New favorite"
+    visit new_favorite_url
 
-    fill_in "Category", with: @favorite.category
-    fill_in "Memo", with: @favorite.memo
-    fill_in "Name", with: @favorite.name
-    click_on "Create Favorite"
+    fill_in "名前", with: "テスト推し"
+    select Favorite.categories.keys.first.humanize, from: "カテゴリ"
+    fill_in "メモ", with: "テストメモ"
 
-    assert_text "Favorite was successfully created"
-    click_on "Back"
+    find("[data-testid='favorite-submit']").click
+
+    assert_text "テスト推し"
   end
 
   test "should update Favorite" do
-    visit favorite_url(@favorite)
-    click_on "Edit this favorite", match: :first
+    visit edit_favorite_url(@favorite)
 
-    fill_in "Category", with: @favorite.category
-    fill_in "Memo", with: @favorite.memo
-    fill_in "Name", with: @favorite.name
-    click_on "Update Favorite"
+    fill_in "名前", with: "更新推し"
+    find("[data-testid='favorite-submit']").click
 
-    assert_text "Favorite was successfully updated"
-    click_on "Back"
+    assert_text "更新推し"
   end
 
   test "should destroy Favorite" do
     visit favorite_url(@favorite)
-    click_on "Destroy this favorite", match: :first
 
-    assert_text "Favorite was successfully destroyed"
+    accept_confirm do
+      find("[data-testid='favorite-destroy']").click
+    end
+
+    assert_no_text @favorite.name
   end
 end
