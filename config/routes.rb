@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  get "home/index"
   resources :favorites
   resources :live_events
-  resources :artists, only: [:index, :show, :new, :create]
-  root "live_events#index"
+  resources :artists
+  root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
