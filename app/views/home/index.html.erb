@@ -1,0 +1,42 @@
+<div class="max-w-6xl mx-auto p-6">
+  <h1 class="text-3xl font-bold text-center mb-8">
+    私の推し活
+  </h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-pink-100 rounded-xl shadow p-6 text-center">
+      <p class="text-3xl font-bold"><%= @favorite_count %></p>
+      <%= link_to "❤推し❤", favorites_path, class: "text-black-600 hover:underline" %>
+    </div>
+
+    <div class="bg-purple-100 rounded-xl shadow p-6 text-center">
+      <p class="text-3xl font-bold"><%= @live_count %></p>
+      <%= link_to "🎵参戦ライブ・イベント🎵", live_events_path, class: "text-black-600 hover:underline" %>
+    </div>
+
+    <div class="bg-blue-100 rounded-xl shadow p-6 text-center">
+      <p class="text-3xl font-bold"><%= @artist_count %></p>
+      <%= link_to "🌟出演者🌟", artists_path, class: "text-black-600 hover:underline" %>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-2xl font-semibold mb-4">最近の参戦ライブ・イベント</h2>
+
+    <% if @recent_live_events.any? %>
+      <ul class="space-y-3">
+        <% @recent_live_events.each do |live| %>
+          <li class="bg-white shadow rounded-lg p-4 hover:bg-gray-50">
+            <%= link_to live_event_path(live), class: "block" do %>
+              <div class="font-semibold">
+                <%= live.date %> - <%= live.title %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-gray-500">まだライブが登録されていません 💭</p>
+    <% end %>
+  </div>
+</div>
