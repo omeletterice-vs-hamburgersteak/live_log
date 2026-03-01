@@ -4,7 +4,6 @@ one:
   date: 2025-09-26
   live_memo: MyText
   venue: MyString
-  artist: MyString
   seat: MyString
   seat_memo: MyText
 
@@ -12,6 +11,5 @@ two:
   date: 2025-09-26
   live_memo: MyText
   venue: MyString
-  artist: MyString
   seat: MyString
   seat_memo: MyText
