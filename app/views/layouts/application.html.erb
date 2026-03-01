@@ -8,6 +8,35 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <header class="bg-white shadow px-6 py-3 flex justify-between items-center">
+      <%= link_to "💖Oshilog", root_path, class: "text-xl font-bold text-pink-600" %>
+
+      <nav class="space-x-6">
+        <%= link_to "推し", favorites_path, class: "hover:text-pink-500" %>
+        <%= link_to "ライブ", live_events_path, class: "hover:text-pink-500" %>
+        <%= link_to "出演者", artists_path, class: "hover:text-pink-500" %>
+      </nav>
+
+      <div data-controller="dropdown" class="relative">
+        <button
+          data-action="click->dropdown#toggle"
+          class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600">
+          ＋追加
+        </button>
+
+        <div
+          data-dropdown-target="menu"
+          class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded">
+          <%= link_to "💖 推しを追加", new_favorite_path,
+              class: "block px-4 py-2 hover:bg-pink-50" %>
+          <%= link_to "🎤 ライブを追加", new_live_event_path,
+              class: "block px-4 py-2 hover:bg-pink-50" %>
+          <%= link_to "👤 出演者を追加", new_artist_path,
+              class: "block px-4 py-2 hover:bg-pink-50" %>
+        </div>
+      </div>
+    </header>
+
     <!-- ✅ Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
