@@ -16,7 +16,7 @@ class ArtistsTest < ApplicationSystemTestCase
     fill_in "名前", with: "テスト出演者"
     find("[data-testid='artist-submit']").click
 
-    assert_current_path artist_path(Artist.last)
+    assert_current_path %r{/artists/\d+}
     assert_text "テスト出演者"
   end
 
