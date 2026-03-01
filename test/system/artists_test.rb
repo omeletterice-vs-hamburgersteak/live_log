@@ -14,9 +14,9 @@ class ArtistsTest < ApplicationSystemTestCase
     visit new_artist_url
 
     fill_in "名前", with: "テスト出演者"
-    assert_current_path artist_path(Artist.last)
+    find("[data-testid='artist-submit']").click
 
-    assert_text "出演者を追加"
+    assert_current_path artist_path(Artist.last)
     assert_text "テスト出演者"
   end
 
