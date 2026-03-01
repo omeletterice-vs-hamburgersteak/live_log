@@ -1,50 +1,59 @@
-<%= form_with(model: favorite) do |form| %>
-  <% if favorite.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(favorite.errors.count, "error") %> prohibited this favorite from being saved:</h2>
+<div class="max-w-3xl mx-auto p-6">
+  <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
 
-      <ul>
-        <% favorite.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, "名前", style: "display: block" %>
-    <%= form.text_field :name, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
-  </div>
-
-  <div>
-    <%= form.label :category, "カテゴリ", style: "display: block" %>
-    <%= form.select :category,
-        Favorite.categories.keys.map { |k| [k.humanize, k] },
-        {},
-        class: "border rounded p-2 bg-white" %>
-  </div>
-
-  <div>
-    <%= form.label :memo, style: "display: block" %>
-    <%= form.textarea :memo, class: "w-1/2 p-2 border border-gray-300 rounded bg-white" %>
-  </div>
-
-    <div class="mb-6">
-    <p class="font-bold mb-2">関連する出演者</p>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-60 overflow-y-auto">
-      <% Artist.all.each do |artist| %>
-        <label class="flex items-center gap-2 border rounded p-2 hover:bg-gray-50 cursor-pointer">
-          <%= check_box_tag "favorite[artist_ids][]",
-                artist.id,
-                favorite.artist_ids.include?(artist.id) %>
-          <span><%= artist.name %></span>
-        </label>
+    <%= form_with(model: favorite) do |form| %>
+      <% if favorite.errors.any? %>
+        <div class="text-red-600 bg-red-50 p-3 rounded">
+          <h2 class="font-bold mb-2">
+            <%= pluralize(favorite.errors.count, "error") %> が保存を妨げました:
+          </h2>
+          <ul class="list-disc list-inside">
+            <% favorite.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-    </div>
-  </div>
 
-  <div>
-    <%= form.submit "確定",class: "bg-[#66cdaa] hover:bg-[#3cb371] text-black font-bold py-2 px-4 rounded mt-1"%>
+      <div class="flex flex-col">
+        <%= form.label :name, "名前", class: "font-semibold mb-1" %>
+        <%= form.text_field :name, class: "w-full p-2 border border-gray-300 rounded" %>
+      </div>
+
+      <div class="flex flex-col">
+        <%= form.label :category, "カテゴリ", class: "font-semibold mb-1" %>
+        <%= form.select :category,
+            Favorite.categories.keys.map { |k| [k.humanize, k] },
+            {},
+            class: "border border-gray-300 rounded p-2 bg-white" %>
+      </div>
+
+      <div class="flex flex-col">
+        <%= form.label :memo, "メモ", class: "font-semibold mb-1" %>
+        <%= form.text_area :memo, class: "w-full p-2 border border-gray-300 rounded" %>
+      </div>
+
+      <div>
+        <p class="font-bold mb-2">関連する出演者</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-60 overflow-y-auto">
+          <% Artist.all.each do |artist| %>
+            <label class="flex items-center gap-2 border rounded-full px-3 py-1 hover:bg-pink-50 cursor-pointer text-sm transition">
+              <%= check_box_tag "favorite[artist_ids][]",
+                    artist.id,
+                    favorite.artist_ids.include?(artist.id),
+                    class: "accent-pink-500" %>
+              <span><%= artist.name %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="flex justify-center">
+        <%= form.submit "確定",
+            class: "bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded transition" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

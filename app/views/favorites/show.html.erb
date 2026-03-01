@@ -1,48 +1,46 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>ライブ参戦記録アプリ</title>
-  <!-- ここにCSSやJSのリンクを追加 -->
-</head>
-<body>
-  <div class="container mx-auto p-4 bg-[#FFF0F5]">
-    <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">推し</h1>
-    <p style="color: green"><%= notice %></p>
+<div class="max-w-6xl mx-auto p-6">
+  <h1 class="text-3xl font-kaisei text-center text-pink-600 mb-8">
+    <%= @favorite.name %>💖
+  </h1>
+  <p style="color: green"><%= notice %></p>
 
-    <%= render @favorite %>
+  <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+    <h2 class="text-2xl font-bold text-pink-600 mb-2"><%= @favorite.name %></h2>
+    <span class="inline-block bg-pink-100 text-pink-600 text-sm font-semibold px-2 py-1 rounded">
+      <%= @favorite.category %>
+    </span>
 
+    <% if @favorite.memo.present? %>
+      <p class="text-gray-700 mt-4 whitespace-pre-line">
+        <%= @favorite.memo %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
     <% @favorite.artists.each do |artist| %>
-      <%= link_to artist.name, artist_path(artist), class: "text-blue-500 underline" %>
-    <% end %>
+      <%= link_to artist_path(artist),
+          class: "block bg-white rounded-2xl shadow-md p-4 hover:shadow-xl hover:-translate-y-1 transition" do %>
 
-    <h2 class="text-xl font-bold mt-6 mb-2">最近の参戦イベント</h2>
-    <% if @live_events.any? %>
-      <ul class="space-y-2">
-        <% @live_events.each do |live| %>
-          <li class="border rounded p-2 hover:bg-gray-50">
-            <%= link_to live_event_path(live), class: "block" do %>
-              <span class="font-semibold">
-                <%= live.date %>
-              </span>
-              <span class="ml-2">
-                <%= live.title %>
-              </span>
-            <% end %>
-          </li>
+        <h3 class="font-bold text-gray-800 text-lg mb-2">最近の参戦ライブ・イベント</h3>
+
+        <% recent_events = artist.live_events.order(date: :desc).limit(5) %>
+        <% recent_events.each do |event| %>
+          <p class="text-gray-500 text-sm">
+            <%= event.date.strftime("%m/%d") %> <%= event.title %>
+          </p>
         <% end %>
-      </ul>
-    <% else %>
-      <p class="text-gray-500">まだ出演ライブはありません。</p>
-    <% end %>
-    <br>
 
-    <div>
-      <div class="flex gap-2">
-        <%= link_to "推しを編集する", edit_favorite_path(@favorite), class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded mt-1" %>      
-        <%= button_to "削除する", @favorite, method: :delete, class: "bg-[#ff6347] hover:bg-[#ff7f50] text-white font-bold py-2 px-4 rounded mt-1" %>
-      </div>
-      <%= link_to "推し一覧に戻る", favorites_path, class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mt-4" %>
+        <% if artist.live_events.count > 5 %>
+          <p class="text-pink-500 text-sm mt-1">→ すべてのライブを見る</p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <div class="flex gap-2 justify-center">
+      <%= link_to "編集する", edit_favorite_path(@favorite), class: "bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded" %>
+      <%= button_to "削除する", @favorite, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" %>
     </div>
-</body>
-</html>
+  </div>

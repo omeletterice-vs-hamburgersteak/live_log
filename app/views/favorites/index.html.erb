@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>ライブ参戦記録アプリ</title>
-  <!-- ここにCSSやJSのリンクを追加 -->
-</head>
-<body>
-  <div class="container mx-auto p-4 bg-[#FFF0F5]">
-    <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">私の推し</h1>
-    <p style="color: green"><%= notice %></p>
+<div class="max-w-6xl mx-auto p-6">
+  <h1 class="text-3xl font-kaisei text-center text-pink-600 mb-8">
+    私の推し
+  </h1>
 
-    <% content_for :title, "推し一覧" %>
+  <p class="text-green-600 text-center"><%= notice %></p>
 
-    <div id="favorites">
+  <% if @favorites.any? %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @favorites.each do |favorite| %>
-        <%= render favorite %>
-        <br>
-        <p>
-          <%= link_to "推しの詳細を見る", favorite, class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded mt-1" %>
-        </p>
-        <br>
-        <p>
-          -------
-        </p>
+        <%= link_to favorite_path(favorite),
+          class: "block bg-white rounded-2xl shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition" do %>
+
+          <h2 class="text-xl font-bold text-gray-800">
+            <%= favorite.name %>
+          </h2>
+
+          <p class="text-sm text-gray-500 mt-2">
+            <%= favorite.category %>
+          </p>
+
+          <div class="mt-4 text-pink-500 text-sm">
+            詳細を見る →
+          </div>
+
+        <% end %>
       <% end %>
     </div>
-
-    <div>
-      <%= link_to "➕推しの追加", new_favorite_path, class: "bg-[#66cdaa] hover:bg-[#3cb371] text-white font-bold py-2 px-4 rounded mt-1" %>
-      <%= link_to "イベント一覧に戻る", live_events_path, class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mt-4" %>
-    </div>
-</body>
-</html>
+  <% else %>
+    <p class="text-center text-gray-500">
+      まだ推しが登録されていません 💭
+    </p>
+  <% end %>
+</div>
