@@ -1,4 +1,7 @@
 class Favorite < ApplicationRecord
+  has_many :favorite_artists, dependent: :destroy
+  has_many :artists, through: :favorite_artists
+
   enum :category, {
     "キャラクター": 0,
     "声優": 1,
@@ -9,7 +12,4 @@ class Favorite < ApplicationRecord
     "俳優・女優": 6,
     "その他": 7
   }
-
-  has_many :favorite_artists
-  has_many :artists, through: :favorite_artists
 end
