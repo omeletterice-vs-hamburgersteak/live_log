@@ -1,12 +1,9 @@
-<% content_for :title, "Editing artist" %>
+<div class="max-w-3xl mx-auto p-6">
+  <h1 class="text-3xl font-kaisei text-center text-pink-600 mb-8">
+    出演者の編集
+  </h1>
+  <p style="color: green"><%= notice %></p>
 
-<h1>Editing artist</h1>
-
-<%= render "form", artist: @artist %>
-
-<br>
-
-<div>
-  <%= link_to "Show this artist", @artist %> |
-  <%= link_to "Back to artists", artists_path %>
+  <% content_for :title, "推し編集" %>
+  <%= render "form", artist: @artist %>
 </div>
