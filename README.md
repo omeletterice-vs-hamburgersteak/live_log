@@ -1,10 +1,11 @@
-# アプリ名
+# Oshilog
 
 ## 概要
-ライブ記録管理アプリ
+ライブの記録と推し管理を行うWebアプリです。
 
 ## 使用技術
-- Ruby on Rails
+- Ruby 3.3.0
+- Rails 8.0.3
 - PostgreSQL
 - Tailwind CSS
 
@@ -22,14 +23,15 @@
 ![sequence](docs/live_log_favorite_artist_sequence.png)
 
 ## 機能一覧
-- ライブ登録
-- 出演者登録
-- 出演者で絞り込み
+- ライブ登録（出演者複数選択可）
+- 推し登録（カテゴリー・メモ付き）
+- 出演者でのライブ絞り込み
 
 ## 環境構築
 ```bash
-git clone
+git clone https://github.com/omeletterice-vs-hamburgersteak/live_log.git
+cd live_log
 bundle install
 rails db:create db:migrate
-rails s
+bin/dev
 ```
