@@ -32,17 +32,6 @@ class ArtistsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-    # @artist = Artist.new(artist_params)
-
-    # respond_to do |format|
-    #   if @artist.save
-    #     format.html { redirect_to @artist, notice: "Artist was successfully created." }
-    #     format.json { render :show, status: :created, location: @artist }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @artist.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /artists/1 or /artists/1.json
