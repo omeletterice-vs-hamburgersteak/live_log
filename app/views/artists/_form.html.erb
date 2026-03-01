@@ -23,7 +23,7 @@
       <br>
 
       <div class="flex justify-center">
-        <%= form.submit "更新",
+        <%= form.submit "更新", data: { testid: "artist-submit" },
             class: "bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded transition" %>
       </div>
     <% end %>
