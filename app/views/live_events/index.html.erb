@@ -1,112 +1,54 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>ライブ参戦記録アプリ</title>
-  <!-- ここにCSSやJSのリンクを追加 -->
-</head>
-<body>
-  <div class="container mx-auto p-4 bg-[#FFF0F5]">
-    <h1 class="text-3xl text-center font-kaisei text-[#663300] mb-4">参戦したライブ・イベント一覧</h1>
+<div class="max-w-6xl mx-auto p-6">
+  <h1 class="text-3xl font-kaisei text-center text-pink-600 mb-8">
+    参戦したライブ・イベント一覧
+  </h1>
 
-    <div class="mb-2">
-      <div class="mb-4">
-      <span id="artist-toggle" class="cursor-pointer font-bold">
-        出演者で絞り込み 🔻
-      </span>
-      
-      <%= link_to "出演者一覧",
-            artists_path,
-            class: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded" %>
-      <%= link_to "➕出演者追加", new_artist_path, class: "bg-[#afeeee] hover:bg-[#6495ed] text-black font-bold py-2 px-4 rounded" %>
-      <%= link_to "➕推しの追加", new_favorite_path, class: "bg-[#66cdaa] hover:bg-[#3cb371] text-black font-bold py-2 px-4 rounded mt-1" %>
+  <!-- アーティストで絞り込み -->
+  <div class="mb-6">
+    <span id="artist-toggle" class="cursor-pointer font-bold text-pink-500 inline-flex items-center gap-1">
+      出演者で絞り込み 🔻
+    </span>
 
-      </div>
+    <div id="artist-filter" class="hidden mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+      <% if params[:artist_id].present? %>
+        <%= link_to "絞り込み解除",
+            live_events_path,
+            class: "bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium px-3 py-1 rounded-full text-center transition" %>
+      <% end %>
 
-      <div id="artist-filter" class="hidden mt-2 bg-white border p-2">
-        <% if params[:artist_id].present? %>
-          <%= link_to "絞り込み解除",
-              live_events_path,
-              class: "block px-2 py-1 text-blue-500 hover:bg-gray-200" %>
-        <% end %>
-        <% @artists.each do |artist| %>
-          <%= link_to artist.name,
-              live_events_path(artist_id: artist.id),
-              class: "block px-2 py-1 hover:bg-gray-200" %>
-        <% end %>
-      </div>
-    </div>
-
-    <table class="table-auto w-full border-collapse border border-gray-300 mt-4">
-      <thead>
-        <tr class="text-[#663300]">
-          <% current_sort = params[:sort] || "date" %>
-          <% current_direction = params[:direction] || "asc" %>
-          <th class="border border-gray-300 px-2 py-1">
-            <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
-            <% next_direction = current_sort == "title" && current_direction == "asc" ? "desc" : "asc" %>
-
-            <%= link_to root_path(sort: "title", direction: next_direction), class: "inline-flex items-center #{'text-blue-600 font-bold' if current_sort == 'title'}" do %>
-              タイトル
-              <% if current_direction == "asc" %>
-                ▲
-              <% else %>
-                ▼
-              <% end %>
-            <% end %>
-          </th>
-          <th class="border border-gray-300 px-2 py-1">
-            <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
-            <% next_direction = current_sort == "date" && current_direction == "asc" ? "desc" : "asc" %>
-
-            <%= link_to root_path(sort: "date", direction: next_direction), class: "inline-flex items-center #{'text-blue-600 font-bold' if current_sort == 'date'}" do %>
-              開催日
-              <% if current_direction == "asc" %>
-                ▲
-              <% else %>
-                ▼
-              <% end %>
-            <% end %>
-          </th>
-          <th class="border border-gray-300 px-2 py-1">
-            出演者
-          </th>
-          <th class="border border-gray-300 px-2 py-1">
-            <% current_direction = params[:direction] == "desc" ? "desc" : "asc" %>
-            <% next_direction = current_sort == "venue" && current_direction == "asc" ? "desc" : "asc" %>
-
-            <%= link_to root_path(sort: "venue", direction: next_direction), class: "inline-flex items-center #{'text-blue-600 font-bold' if current_sort == 'venue'}" do %>
-              会場
-              <% if current_direction == "asc" %>
-                ▲
-              <% else %>
-                ▼
-              <% end %>
-            <% end %>
-          </th>
-          
-          <th class="border border-gray-300 px-2 py-1">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @live_events.order(created_at: :desc).each do |event| %>
-          <tr>
-            <td class="border border-gray-300 px-2 py-1"><%= link_to event.title, live_event_path(event) %></td>
-            <td class="border border-gray-300 px-2 py-1"><%= event.date.strftime("%Y-%m-%d") %></td>
-            <td class="border border-gray-300 px-2 py-1"><%= event.artists.map(&:name).join(", ") %>
-            <td class="border border-gray-300 px-2 py-1"><%= event.venue %></td>
-            <td class="border border-gray-300 px-2 py-1">
-              <%= link_to "編集", edit_live_event_path(event), class: "text-green-600 hover:underline mr-2" %>
-              <%= link_to "削除", live_event_path(event), 
-                  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？"}, class: "text-red-600 hover:underline" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="mt-6 text-right">
-      <%= link_to "新しいライブを追加", new_live_event_path, class: "bg-[#6a5acd] hover:bg-[#7b68ee] text-white font-bold py-2 px-4 rounded" %>
+      <% @artists.each do |artist| %>
+        <%= link_to artist.name,
+            live_events_path(artist_id: artist.id),
+            class: "bg-pink-100 hover:bg-pink-200 text-pink-700 font-medium text-sm px-3 py-1 rounded-full text-center transition" %>
+      <% end %>
     </div>
   </div>
-</body>
-</html>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @live_events.order(date: :desc).each do |event| %>
+      <div class="bg-white rounded-2xl shadow-md p-4 hover:shadow-xl transition">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">
+          <%= link_to event.title, live_event_path(event), class: "hover:text-pink-500" %>
+        </h2>
+
+        <p class="text-gray-600 text-sm mb-1">
+          📅 <%= event.date.strftime("%Y/%m/%d") %>
+        </p>
+        <p class="text-gray-600 text-sm mb-1">
+          🎤 出演者: <%= event.artists.map(&:name).join(", ") %>
+        </p>
+        <p class="text-gray-600 text-sm mb-3">
+          🏟 会場: <%= event.venue %>
+        </p>
+
+        <div class="flex gap-2">
+          <%= link_to "編集", edit_live_event_path(event),
+              class: "bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded" %>
+          <%= link_to "削除", live_event_path(event),
+              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+              class: "bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
