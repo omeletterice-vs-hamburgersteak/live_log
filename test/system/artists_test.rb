@@ -7,35 +7,35 @@ class ArtistsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit artists_url
-    assert_selector "h1", text: "Artists"
+    assert_selector "h1", text: "出演者一覧"
   end
 
   test "should create artist" do
-    visit artists_url
-    click_on "New artist"
+    visit new_artist_url
 
-    fill_in "Name", with: @artist.name
-    click_on "Create Artist"
+    fill_in "名前", with: "テスト出演者"
+    assert_current_path artist_path(Artist.last)
 
-    assert_text "Artist was successfully created"
-    click_on "Back"
+    assert_text "出演者を追加"
+    assert_text "テスト出演者"
   end
 
   test "should update Artist" do
-    visit artist_url(@artist)
-    click_on "Edit this artist", match: :first
+    visit edit_artist_url(@artist)
 
-    fill_in "Name", with: @artist.name
-    click_on "Update Artist"
+    fill_in "名前", with: "更新テスト"
+    find("[data-testid='artist-submit']").click
 
-    assert_text "Artist was successfully updated"
-    click_on "Back"
+    assert_text "更新テスト"
   end
 
   test "should destroy Artist" do
     visit artist_url(@artist)
-    click_on "Destroy this artist", match: :first
 
-    assert_text "Artist was successfully destroyed"
+    accept_confirm do
+      find("[data-testid='artist-destroy']").click
+    end
+
+    assert_no_text @artist.name
   end
 end
